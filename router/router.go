@@ -10,11 +10,12 @@ import (
 // RouteRegister register self-defined routers
 func RouteRegister(r *gin.Engine) {
 
+	r.GET("/", welcome_handler.Welcome)
+
 	shop := r.Group("/shop/inventory")
 
 	shop.Use(middleware.PanicRecover) // panic recover middleware, avoid app from crashing
 
-	shop.GET("/", welcome_handler.Welcome)
 	item := shop.Group("/item")
 	{
 		item.GET("/get_item", shop_item_handler.QueryShopItemList)
